@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-ssh -i ~/.ssh/school ubuntu@54.197.0.33
+# Connect to the ALU server as ubuntu using the school RSA private key
+ssh -i ~/.ssh/school ubuntu@<SERVER_IP>
