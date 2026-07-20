@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Installing Ngnix
+apt update 
+apt-get install -y nginx
+service nginx start
+
+cat > /var/www/html/index.nginx-debian.html << 'EOF'
+Holberton School
+EOF
