@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/env bash
 # Installs Nginx and configures a custom 404 page
 apt update
@@ -32,3 +33,39 @@ server {
 EOF
 
 service nginx restart
+=======
+#!/usr/bin/env bash
+# Installs Nginx and configures a custom 404 page
+apt update
+apt-get install -y nginx
+service nginx start
+
+cat > /var/www/html/index.nginx-debian.html << 'EOF'
+Holberton School
+EOF
+
+cat > /var/www/html/404.html << 'EOF'
+Ceci n'est pas une page
+EOF
+
+cat > /etc/nginx/sites-available/default << 'EOF'
+server {
+    listen 80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
+
+    error_page 404 /404.html;
+
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
+
+service nginx restart
+>>>>>>> f53f7a35dc5205a67b66c95edee60facb73f1d64
