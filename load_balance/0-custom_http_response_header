@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Installs Nginx and adds a custom X-Served-By response header
+# shellcheck disable=SC2154
+apt update
+apt-get install -y nginx
+service nginx start
+
+cat > /var/www/html/index.nginx-debian.html << 'EOF'
+Holberton School
+EOF
+
+cat > /etc/nginx/sites-available/default << 'EOF'
+server {
+    listen 80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
+    add_header X-Served-By $hostname;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+EOF
+
+service nginx restart
